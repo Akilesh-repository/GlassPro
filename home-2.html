@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window Tinting & Auto Glass Service - Home 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === RESET & CORE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Montserrat', sans-serif; 
+        }
+
+        /* === THEME VARIABLES (Automotive Blue/Slate Theme) === */
+        :root {
+            --bg-color: #F8FAFC; 
+            --bg-secondary: #F1F5F9; 
+            --bg-card: #FFFFFF; 
+            --text-main: #0F172A; 
+            --text-muted: #64748B; 
+            --accent-color: #0EA5E9; 
+            --accent-dark: #0284C7; 
+            --border-color: #E2E8F0; 
+            --nav-bg: rgba(248, 250, 252, 0.85);
+            --drawer-bg: #FFFFFF;
+            --drawer-text: #0F172A;
+            --menu-hover-bg: rgba(14, 165, 233, 0.08); 
+        }
+
+        /* DARK MODE */
+        body.dark-mode {
+            --bg-color: #0F172A; 
+            --bg-secondary: #1E293B; 
+            --bg-card: #141E33; 
+            --text-main: #F8FAFC; 
+            --text-muted: #94A3B8; 
+            --accent-color: #38BDF8; 
+            --accent-dark: #0EA5E9; 
+            --border-color: #334155; 
+            --nav-bg: rgba(15, 23, 42, 0.85);
+            --drawer-bg: #0F172A;
+            --drawer-text: #F8FAFC;
+            --menu-hover-bg: rgba(56, 189, 248, 0.15); 
+        }
+
+        /* RTL SUPPORT */
+        [dir="rtl"] .fa-arrow-right-long,
+        [dir="rtl"] .fa-arrow-left-long { transform: rotate(180deg); }
+        [dir="rtl"] .fullscreen-menu { right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color); }
+
+        /* === NEW NAVBAR DESIGN === */
+        .navbar { 
+            position: fixed; top: 0; left: 0; 
+            width: 100%; z-index: 1000;
+            background: var(--nav-bg); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        /* New Underline Hover Effect for Nav Links */
+        .nav-link { 
+            position: relative; padding: 28px 16px; margin: 0;
+            color: var(--text-main); text-decoration: none; font-size: 13.5px; 
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; 
+            transition: color 0.3s ease;
+            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; 
+        }
+        
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -1px; left: 0; 
+            width: 0%; height: 3px; background-color: var(--accent-color); 
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after, .dropdown:hover .nav-link::after { 
+            width: 100%; 
+        }
+        
+        .nav-link:hover, .nav-link.active, .dropdown:hover .nav-link { 
+            color: var(--accent-color); 
+        }
+        
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-menu { 
+            position: absolute; top: 100%; left: 0; transform: translateY(15px); 
+            margin-top: 0px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 100; 
+        }
+        .dropdown-inner { 
+            background: var(--bg-card); border: 1px solid var(--border-color); 
+            border-radius: 8px; min-width: 220px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); padding: 8px 0; 
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        
+        .dropdown-item { 
+            display: block; padding: 12px 20px; 
+            color: var(--text-main); text-decoration: none; font-size: 13px; font-weight: 600; 
+            transition: all 0.2s; text-align: start; white-space: nowrap; border-inline-start: 3px solid transparent;
+        }
+        .dropdown-item:hover { 
+            background: var(--menu-hover-bg); color: var(--accent-color); padding-inline-start: 24px; border-inline-start-color: var(--accent-color);
+        }
+
+        /* PILL TOGGLE */
+        .theme-toggle-pill { 
+            width: 56px; height: 30px; 
+            background: var(--bg-card); 
+            border-radius: 30px; position: relative; cursor: pointer; 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 0 8px; border: 1px solid var(--text-muted); 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .theme-toggle-pill i { font-size: 12px; z-index: 1; }
+        .theme-toggle-pill .fa-sun { color: #f59e0b; }
+        .theme-toggle-pill .fa-moon { color: #6b7280; }
+        .theme-toggle-pill .thumb { 
+            position: absolute; top: 2px; inset-inline-start: 2px; width: 24px; height: 24px; 
+            background: var(--text-main); border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 2; 
+        }
+        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: var(--text-main); }
+        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-26px); }
+
+        /* BUTTONS */
+        .btn { 
+            padding: 12px 28px; font-weight: 700; font-size: 12px; text-transform: uppercase; 
+            letter-spacing: 1px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            display: inline-flex; align-items: center; justify-content: center; 
+            cursor: pointer; border-radius: 50px; box-sizing: border-box; 
+        }
+        .btn-solid { 
+            background: var(--accent-color); color: #FFFFFF !important; 
+            border: none; box-shadow: 0 4px 15px -3px var(--accent-color); 
+        }
+        .btn-solid:hover { 
+            background: var(--accent-dark); transform: translateY(-2px); 
+            box-shadow: 0 8px 25px -5px var(--accent-dark); 
+        }
+
+        .btn-outline { 
+            border: 1px solid var(--border-color); 
+            color: var(--text-main); 
+            background: var(--bg-card); 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05); 
+        }
+        .btn-outline:hover { 
+            border-color: var(--accent-color); color: var(--accent-color); 
+            background: var(--bg-secondary); transform: translateY(-2px); 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        /* MOBILE OVERLAY BACKGROUND */
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); z-index: 1000;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px);
+        }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
+
+        /* HAMBURGER MENU */
+        .fullscreen-menu { 
+            position: fixed; top: 0; right: 0; bottom: 0; width: 100%; max-width: 380px;
+            background: var(--drawer-bg); border-left: 1px solid var(--border-color);
+            z-index: 1001; display: flex; flex-direction: column; color: var(--drawer-text); 
+            opacity: 0; visibility: hidden; transform: translateX(100%); 
+            transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -15px 0 40px rgba(0,0,0,0.05);
+        }
+        .fullscreen-menu.active { opacity: 1; visibility: visible; transform: translateX(0); }
+
+        .mobile-link { 
+            display: block; width: 100%; padding: 16px 0;
+            font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-main); text-decoration: none; transition: all 0.3s; 
+            border-bottom: 1px dashed var(--border-color); text-align: start;
+        }
+        .mobile-link:hover { color: var(--accent-color); padding-inline-start: 8px; }
+
+        /* FOOTER */
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 60px; }
+        footer h4 { color: var(--text-main); font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; font-family: 'Montserrat', sans-serif;} 
+        footer a, footer li, footer span { color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; }
+        footer a:hover { color: var(--accent-color); }
+        footer a.brand-font { font-size: 1.5rem !important; color: var(--text-main) !important; }
+        @media (min-width: 1024px) { footer a.brand-font { font-size: 1.875rem !important; } }
+        footer a.brand-font span { font-size: inherit !important; color: var(--accent-color) !important; }
+        .social-link-circle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; transition: all 0.3s; color: var(--text-main); background: var(--bg-card); }
+        .social-link-circle:hover { background: var(--accent-color); color: #FFFFFF; border-color: var(--accent-color); transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding: 24px 0; margin-top: 40px; }
+    </style>
+</head>
+<body class="font-medium">
+
+    <!-- REDESIGNED NAVBAR PART (EXACT MATCH) -->
+    <nav class="navbar">
+        <div class="max-w-[1400px] mx-auto px-6 w-full flex items-center justify-between">
+            <div class="flex items-center justify-start shrink-0">
+                <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+                    GLASS<span style="color: var(--accent-color);">PRO</span>
+                </a>
+            </div>
+            
+            <div class="hidden xl:flex justify-center items-center h-[75px]">
+                <div class="dropdown">
+                    <div class="nav-link active">Home <i class="fa-solid fa-angle-down text-[10px] ms-1 opacity-70"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="index.html" class="dropdown-item">Home Page 1</a>
+                            <a href="home-2.html" class="dropdown-item">Home Page 2</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+
+            <div class="hidden xl:flex items-center justify-end gap-3 h-[75px]">
+                <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
+                    <i class="fa-regular fa-sun"></i><i class="fa-regular fa-moon"></i><div class="thumb"></div>
+                </div>
+                <button id="rtl-btn" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] hover:text-white hover:bg-[var(--accent-color)] transition-all uppercase tracking-widest border border-[var(--border-color)] px-3 py-1.5 rounded-full shadow-sm">RTL</button>
+                <div class="h-6 w-[1px] bg-[var(--border-color)] mx-2"></div>
+                <a href="booking.html" class="btn btn-solid min-w-[95px] h-[38px] !p-0 !text-[11px] flex items-center justify-center">BOOK NOW</a>
+            </div>
+
+            <div class="xl:hidden flex items-center justify-end h-[75px]">
+                <button id="mobile-btn" class="w-10 h-10 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
+                    <i class="fa-solid fa-bars-staggered text-lg"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HAMBURGER/DRAWER PART (EXACT MATCH) -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="fullscreen-menu" id="fullscreen-menu">
+        <div class="w-full px-6 py-5 flex justify-between items-center border-b border-[var(--border-color)] shrink-0 bg-[var(--bg-secondary)]">
+            <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+                GLASS<span style="color: var(--accent-color);">PRO</span>
+            </a>
+            <button id="close-menu" class="w-8 h-8 rounded-lg border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-lg bg-[var(--bg-card)] text-[var(--text-muted)]">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="flex flex-col items-start justify-start px-6 py-4 w-full overflow-y-auto flex-1">
+            <a href="index.html" class="mobile-link" style="color: var(--accent-color); border-top: 1px dashed var(--border-color);">Home Page 1</a>
+            <a href="home-2.html" class="mobile-link">Home Page 2</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="pricing.html" class="mobile-link">Pricing</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="faq.html" class="mobile-link">FAQ</a>
+            <a href="contact.html" class="mobile-link">Contact</a>
+        </div>
+        <div class="w-full px-6 py-6 border-t border-[var(--border-color)] flex flex-col gap-5 shrink-0 bg-[var(--bg-secondary)]">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-semibold text-[10px] uppercase tracking-widest">Theme:</span>
+                    <div id="theme-toggle-mobile" class="theme-toggle-pill"><i class="fa-regular fa-sun"></i><i class="fa-regular fa-moon"></i><div class="thumb"></div></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-semibold text-[10px] uppercase tracking-widest">Layout:</span>
+                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3 py-1.5 rounded-lg hover:border-[var(--accent-color)] transition-colors shadow-sm">LTR / RTL</button>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3 w-full mt-2">
+                <a href="booking.html" class="btn btn-solid w-full !py-3 rounded-lg">BOOK NOW</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME 2 HERO BANNER PART (Center Aligned, Full Width Background) -->
+    <section class="relative w-full min-h-[100dvh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
+        <!-- Full Width Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop" alt="Premium Auto Glass Facility" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0F172A]/90 via-[#0F172A]/70 to-[#0F172A]/95"></div>
+        </div>
+        
+        <!-- Centered Glassmorphism Card Content -->
+        <div class="relative z-10 w-full max-w-4xl mx-auto px-6">
+            <div class="bg-white/10 backdrop-blur-xl border border-white/20 p-8 sm:p-12 md:p-16 rounded-[3rem] shadow-2xl text-center flex flex-col items-center transform transition-transform hover:scale-[1.02] duration-500">
+                <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[var(--accent-color)]/20 border border-[var(--accent-color)]/30 text-[var(--accent-color)] text-[11px] font-black uppercase tracking-[0.2em] mb-6 shadow-sm">
+                    <i class="fa-solid fa-star"></i> Rated #1 in Detroit
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6 text-white tracking-tight brand-font uppercase">
+                    Crystal Clear <br>
+                    <span class="text-[var(--accent-color)]">Performance.</span>
+                </h1>
+                <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-2xl font-medium mb-10">
+                    Detroit's premier destination for high-performance ceramic window tinting, ADAS-certified windshield replacement, and rapid rock chip repair. We set the standard for automotive glass care.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-10">
+                    <a href="booking.html" class="btn btn-solid w-full sm:w-auto group !py-4 !px-10 text-sm flex justify-center items-center gap-3 shadow-lg shadow-[var(--accent-color)]/40 hover:-translate-y-1 transition-transform rounded-xl">
+                        <span>Schedule Service</span>
+                        <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1"></i>
+                    </a>
+                    <a href="tel:+18005558468" class="btn w-full sm:w-auto !py-4 !px-10 text-sm transition-all flex justify-center items-center gap-3 border-2 border-white/30 text-white hover:bg-white hover:text-[#0F172A] rounded-xl">
+                        <i class="fa-solid fa-phone text-lg"></i> 1-800-555-TINT
+                    </a>
+                </div>
+                <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10 text-slate-300 text-xs font-bold uppercase tracking-widest border-t border-white/20 pt-8 w-full max-w-2xl">
+                    <div class="flex flex-col items-center gap-2"><i class="fa-solid fa-certificate text-[var(--accent-color)] text-2xl"></i> OEM Glass</div>
+                    <div class="flex flex-col items-center gap-2"><i class="fa-solid fa-file-invoice-dollar text-[var(--accent-color)] text-2xl"></i> Insurance Approved</div>
+                    <div class="flex flex-col items-center gap-2"><i class="fa-solid fa-shield-halved text-[var(--accent-color)] text-2xl"></i> Lifetime Warranty</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: PREMIUM SERVICES GRID (~50 Lines) -->
+    <section class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-[var(--accent-color)] font-bold text-[11px] uppercase tracking-[0.2em] block mb-3">Our Offerings</span>
+                <h2 class="text-3xl md:text-5xl font-black brand-font text-[var(--text-main)] uppercase mb-6">Expert Services</h2>
+                <p class="text-[var(--text-muted)] font-medium">We provide comprehensive auto glass solutions tailored to keep you safe, comfortable, and driving with absolute clarity.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-[var(--bg-card)] rounded-[2rem] p-8 border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--accent-color)] text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-3">Window Tinting</h3>
+                    <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow">Premium ceramic and carbon films for maximum heat rejection and UV protection.</p>
+                    <a href="services.html" class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest hover:text-[var(--accent-dark)] mt-auto">Explore <i class="fa-solid fa-arrow-right-long ml-1"></i></a>
+                </div>
+                <div class="bg-[var(--bg-card)] rounded-[2rem] p-8 border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--accent-color)] text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-car-burst"></i></div>
+                    <h3 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-3">Chip Repair</h3>
+                    <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow">Fast resin injection that stops cracks from spreading, restoring structural integrity.</p>
+                    <a href="services.html" class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest hover:text-[var(--accent-dark)] mt-auto">Explore <i class="fa-solid fa-arrow-right-long ml-1"></i></a>
+                </div>
+                <div class="bg-[var(--bg-card)] rounded-[2rem] p-8 border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--accent-color)] text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-car-side"></i></div>
+                    <h3 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-3">Glass Replace</h3>
+                    <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow">Full windshield and side glass replacements using OEM-equivalent materials.</p>
+                    <a href="services.html" class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest hover:text-[var(--accent-dark)] mt-auto">Explore <i class="fa-solid fa-arrow-right-long ml-1"></i></a>
+                </div>
+                <div class="bg-[var(--bg-card)] rounded-[2rem] p-8 border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--accent-color)] text-2xl mb-6 group-hover:scale-110 transition-transform"><i class="fa-solid fa-camera"></i></div>
+                    <h3 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-3">ADAS Calibrate</h3>
+                    <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow">Precision camera recalibration for lane departure and auto-braking systems.</p>
+                    <a href="services.html" class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest hover:text-[var(--accent-dark)] mt-auto">Explore <i class="fa-solid fa-arrow-right-long ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: THE GLASSPRO TRANSFORMATION (~50 Lines) -->
+    <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)] overflow-hidden">
+        <div class="max-w-[1400px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="flex flex-col items-start text-left z-10">
+                <span class="text-[var(--accent-color)] font-bold text-[11px] uppercase tracking-[0.2em] block mb-4 flex items-center gap-2"><i class="fa-solid fa-bolt"></i> See The Difference</span>
+                <h2 class="text-4xl sm:text-5xl font-black brand-font uppercase mb-6 leading-[1.1] text-[var(--text-main)]">
+                    Transform Your <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-color)] to-[var(--accent-dark)]">Driving Experience.</span>
+                </h2>
+                <p class="text-base sm:text-lg leading-relaxed mb-8 text-[var(--text-muted)] font-medium">
+                    Whether you are shielding your interior from blistering summer heat with our nano-ceramic tints, or restoring your line of sight with a flawless windshield replacement, we guarantee perfection on every job.
+                </p>
+                <ul class="space-y-4 mb-10 w-full">
+                    <li class="flex items-center gap-4 bg-[var(--bg-card)] border border-[var(--border-color)] p-4 rounded-xl shadow-sm"><i class="fa-solid fa-temperature-arrow-down text-[var(--accent-color)] text-xl w-6 text-center"></i> <span class="font-bold text-sm uppercase text-[var(--text-main)]">Block up to 98% of Infrared Heat</span></li>
+                    <li class="flex items-center gap-4 bg-[var(--bg-card)] border border-[var(--border-color)] p-4 rounded-xl shadow-sm"><i class="fa-solid fa-eye-slash text-[var(--accent-color)] text-xl w-6 text-center"></i> <span class="font-bold text-sm uppercase text-[var(--text-main)]">Enhanced Privacy & Security</span></li>
+                    <li class="flex items-center gap-4 bg-[var(--bg-card)] border border-[var(--border-color)] p-4 rounded-xl shadow-sm"><i class="fa-solid fa-shield text-[var(--accent-color)] text-xl w-6 text-center"></i> <span class="font-bold text-sm uppercase text-[var(--text-main)]">Shatter Resistance & UV Protection</span></li>
+                </ul>
+                <a href="booking.html" class="btn btn-solid !py-3 !px-8 text-sm flex items-center gap-2 group shadow-[var(--accent-color)]/30 shadow-lg">
+                    <span>Book Your Upgrade</span>
+                    <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
+            <div class="relative w-full h-[500px] lg:h-[600px] rounded-[3rem] overflow-hidden group border-4 border-[var(--bg-card)] shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1600706432502-77739502758d?q=80&w=2069&auto=format&fit=crop" alt="Premium Tint Installation" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-8 left-8 text-white">
+                    <p class="text-[10px] uppercase tracking-[0.2em] font-bold mb-1 opacity-80">Before & After</p>
+                    <p class="text-2xl brand-font font-black">Flawless Application</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: BY THE NUMBERS (~35 Lines) -->
+    <section class="py-20 relative overflow-hidden bg-[#0F172A] border-y border-slate-800">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay"></div>
+        <div class="max-w-[1400px] mx-auto px-6 relative z-10 text-center">
+            <h2 class="sr-only">Our Statistics</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-slate-700">
+                <div class="flex flex-col items-center justify-center p-4">
+                    <div class="text-4xl lg:text-6xl font-black brand-font text-white mb-2 tracking-tighter">15<span class="text-[var(--accent-color)]">+</span></div>
+                    <div class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400">Years in Business</div>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4">
+                    <div class="text-4xl lg:text-6xl font-black brand-font text-white mb-2 tracking-tighter">10<span class="text-[var(--accent-color)]">k</span></div>
+                    <div class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400">Vehicles Serviced</div>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4">
+                    <div class="text-4xl lg:text-6xl font-black brand-font text-white mb-2 tracking-tighter">4.9<span class="text-[var(--accent-color)]">/5</span></div>
+                    <div class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400">Customer Rating</div>
+                </div>
+                <div class="flex flex-col items-center justify-center p-4">
+                    <div class="text-4xl lg:text-6xl font-black brand-font text-white mb-2 tracking-tighter">100<span class="text-[var(--accent-color)]">%</span></div>
+                    <div class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-slate-400">Lifetime Warranty</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: TESTIMONIALS (~50 Lines) -->
+    <section class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <span class="text-[var(--accent-color)] font-bold text-[11px] uppercase tracking-[0.2em] block mb-3">Community Trust</span>
+                    <h2 class="text-3xl md:text-5xl font-black brand-font text-[var(--text-main)] uppercase">What Detroit Drives</h2>
+                </div>
+                <div class="flex gap-2">
+                    <button class="w-12 h-12 rounded-full border border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] hover:bg-[var(--accent-color)] hover:text-white hover:border-[var(--accent-color)] transition-colors shadow-sm flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="w-12 h-12 rounded-full border border-[var(--border-color)] bg-[var(--bg-card)] text-[var(--text-main)] hover:bg-[var(--accent-color)] hover:text-white hover:border-[var(--accent-color)] transition-colors shadow-sm flex items-center justify-center"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-shadow flex flex-col">
+                    <div class="text-[var(--accent-color)] flex gap-1 text-sm mb-6"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-8 font-medium italic flex-grow">"The mobile unit came right to my office parking lot. They replaced my cracked windshield while I was in a meeting. Impeccable service and no mess left behind."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/100?img=11" alt="Reviewer" class="w-12 h-12 rounded-full border-2 border-[var(--bg-secondary)]">
+                        <div><h4 class="font-bold text-[var(--text-main)] text-sm uppercase">Robert T.</h4><span class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">Mobile Glass Replace</span></div>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-shadow flex flex-col">
+                    <div class="text-[var(--accent-color)] flex gap-1 text-sm mb-6"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-8 font-medium italic flex-grow">"I brought my Model Y in for ceramic tint all around. The heat rejection is immediately noticeable, and the cuts are absolutely flawless up to the edge. Best shop in MI."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/100?img=47" alt="Reviewer" class="w-12 h-12 rounded-full border-2 border-[var(--bg-secondary)]">
+                        <div><h4 class="font-bold text-[var(--text-main)] text-sm uppercase">Jessica M.</h4><span class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">Ceramic Tinting</span></div>
+                    </div>
+                </div>
+                <div class="bg-[var(--bg-card)] p-8 rounded-3xl border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-shadow flex flex-col">
+                    <div class="text-[var(--accent-color)] flex gap-1 text-sm mb-6"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                    <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-8 font-medium italic flex-grow">"They handled everything with my insurance company directly. I paid zero out of pocket for my rock chip repair and was in and out in 20 minutes. Highly recommend."</p>
+                    <div class="flex items-center gap-4">
+                        <img src="https://i.pravatar.cc/100?img=33" alt="Reviewer" class="w-12 h-12 rounded-full border-2 border-[var(--bg-secondary)]">
+                        <div><h4 class="font-bold text-[var(--text-main)] text-sm uppercase">David K.</h4><span class="text-[10px] text-[var(--text-muted)] uppercase tracking-wider">Chip Repair</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: TRUSTED BRANDS (~45 Lines) -->
+    <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)]">
+        <div class="max-w-[1400px] mx-auto px-6 text-center">
+            <span class="text-[var(--accent-color)] font-bold text-[11px] uppercase tracking-[0.2em] block mb-3">Uncompromised Standard</span>
+            <h2 class="text-3xl md:text-5xl font-black brand-font text-[var(--text-main)] uppercase mb-12">Industry Leading Materials</h2>
+            <p class="text-[var(--text-muted)] max-w-2xl mx-auto mb-16 font-medium">We partner with the world's most trusted automotive manufacturers to ensure your vehicle is treated with OEM-equivalent glass, premium adhesives, and superior window films.</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-12 opacity-70">
+                <div class="flex flex-col items-center justify-center p-6 bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-color)] filter grayscale hover:grayscale-0 hover:bg-[var(--bg-card)] transition-all duration-300 cursor-pointer">
+                    <i class="fa-solid fa-certificate text-4xl text-[var(--text-main)] mb-3"></i>
+                    <span class="font-black brand-font uppercase tracking-widest text-sm text-[var(--text-main)]">OEM Glass</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-6 bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-color)] filter grayscale hover:grayscale-0 hover:bg-[var(--bg-card)] transition-all duration-300 cursor-pointer">
+                    <i class="fa-solid fa-shield text-4xl text-[var(--text-main)] mb-3"></i>
+                    <span class="font-black brand-font uppercase tracking-widest text-sm text-[var(--text-main)]">SunTek Films</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-6 bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-color)] filter grayscale hover:grayscale-0 hover:bg-[var(--bg-card)] transition-all duration-300 cursor-pointer">
+                    <i class="fa-solid fa-droplet text-4xl text-[var(--text-main)] mb-3"></i>
+                    <span class="font-black brand-font uppercase tracking-widest text-sm text-[var(--text-main)]">Dow Urethane</span>
+                </div>
+                <div class="flex flex-col items-center justify-center p-6 bg-[var(--bg-secondary)] rounded-2xl border border-[var(--border-color)] filter grayscale hover:grayscale-0 hover:bg-[var(--bg-card)] transition-all duration-300 cursor-pointer">
+                    <i class="fa-solid fa-spray-can-sparkles text-4xl text-[var(--text-main)] mb-3"></i>
+                    <span class="font-black brand-font uppercase tracking-widest text-sm text-[var(--text-main)]">Ceramic Pro</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: FINAL CTA STRIP (~45 Lines) -->
+    <section class="py-24 relative overflow-hidden bg-gradient-to-r from-[var(--accent-color)] to-[var(--accent-dark)]">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+        <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+            <div class="bg-white/10 backdrop-blur-md rounded-[3rem] p-10 md:p-16 border border-white/20 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
+                <div class="md:w-2/3 text-center md:text-left">
+                    <span class="text-white font-bold text-[11px] uppercase tracking-[0.2em] block mb-3"><i class="fa-regular fa-calendar-check"></i> Act Now</span>
+                    <h2 class="text-3xl md:text-5xl font-black brand-font text-white uppercase mb-4 leading-tight">
+                        Ready to Upgrade <br>Your Ride?
+                    </h2>
+                    <p class="text-white/90 text-base md:text-lg max-w-xl">
+                        Schedule your auto glass replacement or window tinting service online today. Lock in our competitive rates and experience Detroit's best automotive care.
+                    </p>
+                </div>
+                <div class="md:w-1/3 flex flex-col gap-4 w-full justify-center md:justify-end">
+                    <a href="booking.html" class="bg-white text-[#0F172A] font-black text-sm uppercase tracking-widest py-5 px-8 rounded-full hover:bg-slate-100 transition-all shadow-xl text-center flex items-center justify-center gap-3">
+                        Book Your Slot <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="tel:+18005558468" class="bg-transparent border-2 border-white/50 text-white font-bold text-sm uppercase tracking-widest py-5 px-8 rounded-full hover:border-white transition-all text-center flex items-center justify-center gap-3">
+                        Call Dispatch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PART (EXACT MATCH) -->
+    <footer>
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-10 pt-4">
+                <div class="lg:col-span-4">
+                    <div class="mb-6">
+                        <!-- 100% IDENTICAL LOGO CODE -->
+                        <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+                            GLASS<span style="color: var(--accent-color);">PRO</span>
+                        </a>
+                    </div>
+                    <p class="opacity-80 leading-relaxed text-sm mb-6 max-w-sm" style="color: var(--text-muted);">
+                        Your trusted experts in professional window tinting and premium auto glass repair. We bring clarity, comfort, and safety to every drive.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="social-link-circle"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fa-brands fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                        <div>
+                            <h4>Client Portal</h4>
+                            <ul class="space-y-3">
+                                <li><a href="pricing.html">Book Appointment</a></li>
+                                <li><a href="user.html">Service History</a></li>
+                                <li><a href="#">Warranty Info</a></li>
+                                <li><a href="#">Cancellation Policy</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Our Services</h4>
+                            <ul class="space-y-3">
+                                <li><a href="services.html">Window Tinting</a></li>
+                                <li><a href="services.html">Windshield Repair</a></li>
+                                <li><a href="services.html">Full Glass Replacement</a></li>
+                                <li><a href="services.html">Ceramic Coating</a></li>
+                                <li><a href="services.html">Commercial Tinting</a></li>
+                            </ul>
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-1">
+                            <h4>Shop Details</h4>
+                            <ul class="space-y-3 text-[var(--text-muted)] text-sm">
+                                <li class="flex items-start"><i class="fa-solid fa-location-dot mt-1 me-3 shrink-0" style="color: var(--accent-color);"></i><span>405 Motorway Blvd<br>Detroit, MI 48226</span></li>
+                                <li class="flex items-center"><i class="fa-solid fa-phone me-3 shrink-0" style="color: var(--accent-color);"></i><a href="tel:+18005558468" class="break-all">1-800-555-TINT</a></li>
+                                <li class="flex items-center"><i class="fa-regular fa-envelope me-3 shrink-0" style="color: var(--accent-color);"></i><a href="mailto:service@autoglasspro.com" class="break-all">service@autoglasspro.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center text-sm gap-4">
+                <p style="color: var(--text-muted);">&copy; 2026 GlassPro Service. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Warranty Terms</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS (EXACT MATCH) -->
+    <script>
+        const mobileBtn = document.getElementById('mobile-btn'); 
+        const fullscreenMenu = document.getElementById('fullscreen-menu'); 
+        const closeMenu = document.getElementById('close-menu'); 
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        
+        function toggleMenu() { 
+            fullscreenMenu.classList.toggle('active'); 
+            drawerOverlay.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+        
+        mobileBtn.onclick = toggleMenu; 
+        closeMenu.onclick = toggleMenu; 
+        drawerOverlay.onclick = toggleMenu; 
+        
+        const themeDesktop = document.getElementById('theme-toggle-desktop');
+        const themeMobile = document.getElementById('theme-toggle-mobile'); 
+        const theme = localStorage.getItem('theme') || 'light';
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode'); 
+                if(themeMobile) themeMobile.classList.add('active');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if(themeMobile) themeMobile.classList.remove('active');
+            }
+        }
+        
+        updateThemeUI(theme === 'dark');
+        
+        function toggleTheme() { 
+            const isDark = !document.body.classList.contains('dark-mode');
+            updateThemeUI(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light'); 
+        }
+        
+        themeDesktop.onclick = toggleTheme; 
+        if(themeMobile) themeMobile.onclick = toggleTheme;
+        
+        const rtlBtn = document.getElementById('rtl-btn'); 
+        const rtlMobile = document.getElementById('rtl-toggle-mobile'); 
+        const dir = localStorage.getItem('dir') || 'ltr';
+        
+        if (dir === 'rtl') { 
+            document.documentElement.dir = 'rtl'; 
+        }
+        
+        function toggleRTL() { 
+            const isRTL = document.documentElement.dir === 'rtl'; 
+            document.documentElement.dir = isRTL ? 'ltr' : 'rtl'; 
+            localStorage.setItem('dir', isRTL ? 'ltr' : 'rtl'); 
+        }
+        
+        rtlBtn.onclick = toggleRTL; 
+        if(rtlMobile) rtlMobile.onclick = toggleRTL;
+    </script>
+</body>
+</html>
