@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Window Tinting & Auto Glass Service - Home 2</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -65,24 +66,26 @@
         /* === NEW NAVBAR DESIGN === */
         .navbar { 
             position: fixed; top: 0; left: 0; 
-            width: 100%; z-index: 1000;
+            width: 100%; height: 75px; z-index: 1000;
             background: var(--nav-bg); 
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            display: flex; align-items: center;
         }
         
         /* New Underline Hover Effect for Nav Links */
         .nav-link { 
-            position: relative; padding: 28px 16px; margin: 0;
+            position: relative; height: 100%; padding: 0 16px; margin: 0;
             color: var(--text-main); text-decoration: none; font-size: 13.5px; 
             font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; 
             transition: color 0.3s ease;
-            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; 
+            line-height: 1;
         }
         
         .nav-link::after {
-            content: ''; position: absolute; bottom: -1px; left: 0; 
+            content: ''; position: absolute; bottom: 0; left: 0; 
             width: 0%; height: 3px; background-color: var(--accent-color); 
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -97,7 +100,7 @@
         
         .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
         .dropdown-menu { 
-            position: absolute; top: 100%; left: 0; transform: translateY(15px); 
+            position: absolute; top: 100%; left: 0; transform: translateY(10px); 
             margin-top: 0px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 100; 
         }
         .dropdown-inner { 
@@ -118,50 +121,117 @@
 
         /* PILL TOGGLE */
         .theme-toggle-pill { 
-            width: 56px; height: 30px; 
+            width: 68px; height: 38px; 
             background: var(--bg-card); 
-            border-radius: 30px; position: relative; cursor: pointer; 
+            border-radius: 38px; position: relative; cursor: pointer; 
             display: flex; align-items: center; justify-content: space-between; 
-            padding: 0 8px; border: 1px solid var(--text-muted); 
+            padding: 0 10px; border: 1px solid var(--border-color); 
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 2px 5px rgba(0,0,0,0.1);
+            box-sizing: border-box; flex-shrink: 0;
         }
-        .theme-toggle-pill i { font-size: 12px; z-index: 1; }
+        .theme-toggle-pill i { font-size: 13px; z-index: 1; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .theme-toggle-pill .fa-sun { color: #f59e0b; }
         .theme-toggle-pill .fa-moon { color: #6b7280; }
         .theme-toggle-pill .thumb { 
-            position: absolute; top: 2px; inset-inline-start: 2px; width: 24px; height: 24px; 
+            position: absolute; top: 4px; inset-inline-start: 4px; width: 28px; height: 28px; 
             background: var(--text-main); border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
             box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 2; 
         }
-        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: var(--text-main); }
-        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-26px); }
+        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(30px); background: var(--text-main); }
+        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-30px); }
 
-        /* BUTTONS */
+        /* BUTTONS - ALL BUTTON BACKGROUNDS BLUE & 100% VISIBLE WHITE TYPOGRAPHY */
         .btn { 
-            padding: 12px 28px; font-weight: 700; font-size: 12px; text-transform: uppercase; 
-            letter-spacing: 1px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: inline-flex; align-items: center; justify-content: center; 
-            cursor: pointer; border-radius: 50px; box-sizing: border-box; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-weight: 700; text-transform: uppercase; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            cursor: pointer; border-radius: 50px !important; box-sizing: border-box; 
+            text-decoration: none; white-space: nowrap; line-height: 1;
+            background: #0EA5E9 !important; color: #FFFFFF !important;
         }
+        .btn, .btn *, .btn i, .btn span { 
+            color: #FFFFFF !important; 
+        }
+
+        /* Standard Sizes */
+        .btn-sm { 
+            height: 38px; min-height: 38px; padding: 0 20px; 
+            font-size: 11px; letter-spacing: 0.8px; 
+        }
+        .btn-md, .btn:not(.btn-sm):not(.btn-lg) { 
+            min-height: 48px; padding: 12px 28px; 
+            font-size: 12.5px; letter-spacing: 0.6px; 
+        }
+        .btn-lg { 
+            min-height: 54px; padding: 14px 34px; 
+            font-size: 13.5px; letter-spacing: 0.8px; 
+        }
+
+        /* Solid Button (Primary Electric Blue) */
         .btn-solid { 
-            background: var(--accent-color); color: #FFFFFF !important; 
-            border: none; box-shadow: 0 4px 15px -3px var(--accent-color); 
+            background: #0EA5E9 !important; color: #FFFFFF !important; 
+            border: 1.5px solid #0EA5E9 !important; 
+            box-shadow: 0 4px 14px -2px rgba(14, 165, 233, 0.45); 
         }
         .btn-solid:hover { 
-            background: var(--accent-dark); transform: translateY(-2px); 
-            box-shadow: 0 8px 25px -5px var(--accent-dark); 
+            background: #0284C7 !important; border-color: #0284C7 !important; color: #FFFFFF !important; 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 22px -4px rgba(14, 165, 233, 0.55); 
         }
-
+        .btn-solid:active { transform: translateY(0); }
+        
+        /* Solid Button - Dark Mode */
+        body.dark-mode .btn-solid { 
+            background: #0EA5E9 !important; color: #FFFFFF !important; font-weight: 700; 
+            border: 1.5px solid #38BDF8 !important; 
+            box-shadow: 0 4px 18px -2px rgba(14, 165, 233, 0.5); 
+        }
+        body.dark-mode .btn-solid:hover { 
+            background: #0284C7 !important; border-color: #7DD3FC !important; color: #FFFFFF !important; 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 24px -3px rgba(14, 165, 233, 0.65); 
+        }
+        body.dark-mode .btn-solid:active { transform: translateY(0); }
+        
+        /* Secondary / Card Buttons (Deep Royal Blue) */
         .btn-outline { 
-            border: 1px solid var(--border-color); 
-            color: var(--text-main); 
-            background: var(--bg-card); 
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05); 
+            border: 1.5px solid #0EA5E9 !important; 
+            color: #FFFFFF !important; 
+            background: #0284C7 !important; 
+            box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35); 
         }
         .btn-outline:hover { 
-            border-color: var(--accent-color); color: var(--accent-color); 
-            background: var(--bg-secondary); transform: translateY(-2px); 
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border-color: #38BDF8 !important; color: #FFFFFF !important; 
+            background: #0369A1 !important; transform: translateY(-2px); 
+            box-shadow: 0 8px 20px -3px rgba(2, 132, 199, 0.5); 
+        }
+        .btn-outline:active { transform: translateY(0); }
+
+        /* Secondary Button - Dark Mode */
+        body.dark-mode .btn-outline { 
+            border: 1.5px solid #38BDF8 !important; 
+            color: #FFFFFF !important; 
+            background: #0369A1 !important; 
+            box-shadow: 0 4px 16px -2px rgba(3, 105, 161, 0.45); 
+        }
+        body.dark-mode .btn-outline:hover { 
+            border-color: #7DD3FC !important; color: #FFFFFF !important; 
+            background: #0284C7 !important; transform: translateY(-2px); 
+            box-shadow: 0 8px 22px -4px rgba(14, 165, 233, 0.6); 
+        }
+        body.dark-mode .btn-outline:active { transform: translateY(0); }
+
+        /* Badges inside card buttons */
+        .btn .rounded-full.w-8 {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: #FFFFFF !important;
+        }
+        .btn:hover .rounded-full.w-8 {
+            background: #FFFFFF !important;
+            color: #0284C7 !important;
+        }
+        .btn:hover .rounded-full.w-8 i {
+            color: #0284C7 !important;
         }
 
         /* MOBILE OVERLAY BACKGROUND */
@@ -206,9 +276,9 @@
 
     <!-- REDESIGNED NAVBAR PART (EXACT MATCH) -->
     <nav class="navbar">
-        <div class="max-w-[1400px] mx-auto px-6 w-full flex items-center justify-between">
-            <div class="flex items-center justify-start shrink-0">
-                <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+        <div class="max-w-[1400px] mx-auto px-6 w-full h-[75px] flex items-center justify-between">
+            <div class="flex items-center justify-start shrink-0 h-[75px]">
+                <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase flex items-center leading-none" style="color: var(--text-main); text-decoration: none;">
                     GLASS<span style="color: var(--accent-color);">PRO</span>
                 </a>
             </div>
@@ -235,14 +305,14 @@
                 <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
                     <i class="fa-regular fa-sun"></i><i class="fa-regular fa-moon"></i><div class="thumb"></div>
                 </div>
-                <button id="rtl-btn" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] hover:text-white hover:bg-[var(--accent-color)] transition-all uppercase tracking-widest border border-[var(--border-color)] px-3 py-1.5 rounded-full shadow-sm">RTL</button>
-                <div class="h-6 w-[1px] bg-[var(--border-color)] mx-2"></div>
-                <a href="booking.html" class="btn btn-solid min-w-[95px] h-[38px] !p-0 !text-[11px] flex items-center justify-center">BOOK NOW</a>
+                <button id="rtl-btn" class="h-[38px] px-3.5 flex items-center justify-center text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] hover:text-white hover:bg-[var(--accent-color)] transition-all uppercase tracking-widest border border-[var(--border-color)] rounded-full shadow-sm shrink-0">RTL</button>
+                <div class="h-6 w-[1px] bg-[var(--border-color)] mx-1 shrink-0"></div>
+                <a href="booking.html" class="btn btn-solid btn-sm min-w-[95px] shrink-0">BOOK NOW</a>
             </div>
 
             <div class="xl:hidden flex items-center justify-end h-[75px]">
-                <button id="mobile-btn" class="w-10 h-10 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
-                    <i class="fa-solid fa-bars-staggered text-lg"></i>
+                <button id="mobile-btn" class="w-[38px] h-[38px] rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
+                    <i class="fa-solid fa-bars-staggered text-base"></i>
                 </button>
             </div>
         </div>
@@ -252,10 +322,10 @@
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <div class="fullscreen-menu" id="fullscreen-menu">
         <div class="w-full px-6 py-5 flex justify-between items-center border-b border-[var(--border-color)] shrink-0 bg-[var(--bg-secondary)]">
-            <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+            <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase flex items-center leading-none" style="color: var(--text-main); text-decoration: none;">
                 GLASS<span style="color: var(--accent-color);">PRO</span>
             </a>
-            <button id="close-menu" class="w-8 h-8 rounded-lg border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-lg bg-[var(--bg-card)] text-[var(--text-muted)]">
+            <button id="close-menu" class="w-[38px] h-[38px] rounded-lg border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-base bg-[var(--bg-card)] text-[var(--text-muted)]">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -277,11 +347,11 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="text-[var(--text-muted)] font-semibold text-[10px] uppercase tracking-widest">Layout:</span>
-                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3 py-1.5 rounded-lg hover:border-[var(--accent-color)] transition-colors shadow-sm">LTR / RTL</button>
+                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3.5 py-1.5 rounded-full hover:border-[var(--accent-color)] transition-colors shadow-sm">LTR / RTL</button>
                 </div>
             </div>
             <div class="flex flex-col gap-3 w-full mt-2">
-                <a href="booking.html" class="btn btn-solid w-full !py-3 rounded-lg">BOOK NOW</a>
+                <a href="booking.html" class="btn btn-solid btn-md w-full">BOOK NOW</a>
             </div>
         </div>
     </div>
@@ -308,11 +378,11 @@
                     Detroit's premier destination for high-performance ceramic window tinting, ADAS-certified windshield replacement, and rapid rock chip repair. We set the standard for automotive glass care.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-10">
-                    <a href="booking.html" class="btn btn-solid w-full sm:w-auto group !py-4 !px-10 text-sm flex justify-center items-center gap-3 shadow-lg shadow-[var(--accent-color)]/40 hover:-translate-y-1 transition-transform rounded-xl">
+                    <a href="booking.html" class="btn btn-solid btn-lg w-full sm:w-auto group flex justify-center items-center gap-3">
                         <span>Schedule Service</span>
                         <i class="fa-solid fa-arrow-right-long transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1"></i>
                     </a>
-                    <a href="tel:+18005558468" class="btn w-full sm:w-auto !py-4 !px-10 text-sm transition-all flex justify-center items-center gap-3 border-2 border-white/30 text-white hover:bg-white hover:text-[#0F172A] rounded-xl">
+                    <a href="tel:+18005558468" class="btn btn-outline btn-lg w-full sm:w-auto flex justify-center items-center gap-3">
                         <i class="fa-solid fa-phone text-lg"></i> 1-800-555-TINT
                     </a>
                 </div>
@@ -378,7 +448,7 @@
                     <li class="flex items-center gap-4 bg-[var(--bg-card)] border border-[var(--border-color)] p-4 rounded-xl shadow-sm"><i class="fa-solid fa-eye-slash text-[var(--accent-color)] text-xl w-6 text-center"></i> <span class="font-bold text-sm uppercase text-[var(--text-main)]">Enhanced Privacy & Security</span></li>
                     <li class="flex items-center gap-4 bg-[var(--bg-card)] border border-[var(--border-color)] p-4 rounded-xl shadow-sm"><i class="fa-solid fa-shield text-[var(--accent-color)] text-xl w-6 text-center"></i> <span class="font-bold text-sm uppercase text-[var(--text-main)]">Shatter Resistance & UV Protection</span></li>
                 </ul>
-                <a href="booking.html" class="btn btn-solid !py-3 !px-8 text-sm flex items-center gap-2 group shadow-[var(--accent-color)]/30 shadow-lg">
+                <a href="booking.html" class="btn btn-solid btn-lg flex items-center gap-2 group">
                     <span>Book Your Upgrade</span>
                     <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
                 </a>
@@ -490,33 +560,59 @@
         </div>
     </section>
 
-    <!-- SECTION 6: FINAL CTA STRIP (~45 Lines) -->
-    <section class="py-24 relative overflow-hidden bg-gradient-to-r from-[var(--accent-color)] to-[var(--accent-dark)]">
-        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
-        <div class="max-w-[1400px] mx-auto px-6 relative z-10">
-            <div class="bg-white/10 backdrop-blur-md rounded-[3rem] p-10 md:p-16 border border-white/20 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
-                <div class="md:w-2/3 text-center md:text-left">
-                    <span class="text-white font-bold text-[11px] uppercase tracking-[0.2em] block mb-3"><i class="fa-regular fa-calendar-check"></i> Act Now</span>
-                    <h2 class="text-3xl md:text-5xl font-black brand-font text-white uppercase mb-4 leading-tight">
-                        Ready to Upgrade <br>Your Ride?
-                    </h2>
-                    <p class="text-white/90 text-base md:text-lg max-w-xl">
-                        Schedule your auto glass replacement or window tinting service online today. Lock in our competitive rates and experience Detroit's best automotive care.
-                    </p>
+    <!-- SECTION 6: INTERACTIVE CERAMIC TINT SHADE SIMULATOR (~50 Lines) -->
+    <section class="py-24 min-h-[85vh] flex items-center justify-center bg-[var(--bg-color)] border-b border-[var(--border-color)] relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--accent-color)_0%,_transparent_70%)] opacity-5 pointer-events-none"></div>
+        <div class="max-w-[1400px] mx-auto px-6 w-full text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--accent-color)]/10 border border-[var(--accent-color)]/20 text-[var(--accent-color)] text-[11px] font-bold uppercase tracking-[0.2em] mb-4">
+                <i class="fa-solid fa-sliders"></i> Interactive Shade Simulator
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black brand-font uppercase text-[var(--text-main)] tracking-tight mb-4">
+                Find Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-color)] to-[var(--accent-dark)]">Perfect Shade</span>
+            </h2>
+            <p class="text-[var(--text-muted)] max-w-2xl mx-auto font-medium text-base mb-12">
+                Explore our high-performance nano-ceramic darkness tiers. Engineered for maximum infrared rejection and crystal-clear night visibility.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mb-12">
+                <div class="bg-[var(--bg-card)] border border-[var(--border-color)] p-6 rounded-3xl shadow-sm hover:border-[var(--accent-color)] hover:-translate-y-2 transition-all duration-300 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-2xl bg-slate-950 border-2 border-slate-700 flex items-center justify-center text-white font-black text-xl mb-4 shadow-inner">5%</div>
+                    <span class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest mb-1">Limo Dark</span>
+                    <h3 class="text-lg font-black brand-font uppercase text-[var(--text-main)] mb-2">Maximum Privacy</h3>
+                    <p class="text-[var(--text-muted)] text-xs mb-4">Blocks 98% infrared heat and 99.9% harmful UV rays.</p>
+                    <span class="text-[10px] uppercase font-bold text-[var(--text-main)] bg-[var(--bg-secondary)] px-3 py-1 rounded-full border border-[var(--border-color)]">Rear & Cargo</span>
                 </div>
-                <div class="md:w-1/3 flex flex-col gap-4 w-full justify-center md:justify-end">
-                    <a href="booking.html" class="bg-white text-[#0F172A] font-black text-sm uppercase tracking-widest py-5 px-8 rounded-full hover:bg-slate-100 transition-all shadow-xl text-center flex items-center justify-center gap-3">
-                        Book Your Slot <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a href="tel:+18005558468" class="bg-transparent border-2 border-white/50 text-white font-bold text-sm uppercase tracking-widest py-5 px-8 rounded-full hover:border-white transition-all text-center flex items-center justify-center gap-3">
-                        Call Dispatch
-                    </a>
+                <div class="bg-[var(--bg-card)] border border-[var(--border-color)] p-6 rounded-3xl shadow-sm hover:border-[var(--accent-color)] hover:-translate-y-2 transition-all duration-300 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-2xl bg-slate-900 border-2 border-slate-700 flex items-center justify-center text-white font-black text-xl mb-4 shadow-inner">20%</div>
+                    <span class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest mb-1">Factory Match</span>
+                    <h3 class="text-lg font-black brand-font uppercase text-[var(--text-main)] mb-2">Executive Tint</h3>
+                    <p class="text-[var(--text-muted)] text-xs mb-4">Exact match to OEM rear SUV glass with 94% heat defense.</p>
+                    <span class="text-[10px] uppercase font-bold text-[var(--text-main)] bg-[var(--bg-secondary)] px-3 py-1 rounded-full border border-[var(--border-color)]">Most Popular</span>
                 </div>
+                <div class="bg-[var(--bg-card)] border border-[var(--border-color)] p-6 rounded-3xl shadow-sm hover:border-[var(--accent-color)] hover:-translate-y-2 transition-all duration-300 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-2xl bg-slate-800 border-2 border-slate-600 flex items-center justify-center text-white font-black text-xl mb-4 shadow-inner">35%</div>
+                    <span class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest mb-1">Legal Balanced</span>
+                    <h3 class="text-lg font-black brand-font uppercase text-[var(--text-main)] mb-2">Crystal Comfort</h3>
+                    <p class="text-[var(--text-muted)] text-xs mb-4">Subtle shading with superb heat rejection and night optics.</p>
+                    <span class="text-[10px] uppercase font-bold text-[var(--text-main)] bg-[var(--bg-secondary)] px-3 py-1 rounded-full border border-[var(--border-color)]">All-Around</span>
+                </div>
+                <div class="bg-[var(--bg-card)] border border-[var(--border-color)] p-6 rounded-3xl shadow-sm hover:border-[var(--accent-color)] hover:-translate-y-2 transition-all duration-300 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-2xl bg-slate-700/80 border-2 border-slate-500 flex items-center justify-center text-white font-black text-xl mb-4 shadow-inner">70%</div>
+                    <span class="text-[var(--accent-color)] font-bold text-xs uppercase tracking-widest mb-1">Ultra Clear</span>
+                    <h3 class="text-lg font-black brand-font uppercase text-[var(--text-main)] mb-2">Windshield Shield</h3>
+                    <p class="text-[var(--text-muted)] text-xs mb-4">Virtually invisible ceramic barrier for front windshields.</p>
+                    <span class="text-[10px] uppercase font-bold text-[var(--text-main)] bg-[var(--bg-secondary)] px-3 py-1 rounded-full border border-[var(--border-color)]">100% Legal</span>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="booking.html" class="btn btn-solid btn-md flex items-center gap-2">
+                    <i class="fa-solid fa-calculator"></i> Calculate Custom Tint Price
+                </a>
+                <a href="services.html" class="btn btn-outline btn-md flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info"></i> View State Tint Laws
+                </a>
             </div>
         </div>
     </section>
-
-    <!-- FOOTER PART (EXACT MATCH) -->
     <!-- Why Choose Us Section -->
     <section class="py-24 bg-[var(--bg-secondary)] border-y border-[var(--border-color)] overflow-hidden">
         <div class="max-w-[1400px] mx-auto px-6">
@@ -615,7 +711,33 @@
             </div>
 
             <div class="mt-16 flex justify-center">
-                <a href="booking.html" class="btn btn-solid min-w-[200px]">Start Now <i class="fa-solid fa-arrow-right ml-2"></i></a>
+                <a href="booking.html" class="btn btn-solid btn-lg min-w-[220px]">Start Now <i class="fa-solid fa-arrow-right ml-2"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: FINAL CTA STRIP -->
+    <section class="py-24 relative overflow-hidden bg-gradient-to-r from-[var(--accent-color)] to-[var(--accent-dark)]">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
+        <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+            <div class="bg-[#0F172A]/90 backdrop-blur-md rounded-[3rem] p-10 md:p-16 border border-white/20 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-10">
+                <div class="md:w-2/3 text-center md:text-left">
+                    <span class="text-white font-bold text-[11px] uppercase tracking-[0.2em] block mb-3"><i class="fa-regular fa-calendar-check"></i> Act Now</span>
+                    <h2 class="text-3xl md:text-5xl font-black brand-font text-white uppercase mb-4 leading-tight">
+                        Ready to Upgrade <br>Your Ride?
+                    </h2>
+                    <p class="text-white/90 text-base md:text-lg max-w-xl">
+                        Schedule your auto glass replacement or window tinting service online today. Lock in our competitive rates and experience Detroit's best automotive care.
+                    </p>
+                </div>
+                <div class="md:w-1/3 flex flex-col gap-4 w-full justify-center md:justify-end">
+                    <a href="booking.html" class="btn btn-solid btn-lg text-center flex items-center justify-center gap-3">
+                        Book Your Slot <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="tel:+18005558468" class="btn btn-outline btn-lg text-center flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-phone"></i> Call Dispatch
+                    </a>
+                </div>
             </div>
         </div>
     </section>

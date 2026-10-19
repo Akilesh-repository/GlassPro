@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Window Tinting & Auto Glass Service</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -65,24 +66,26 @@
         /* === NEW NAVBAR DESIGN === */
         .navbar { 
             position: fixed; top: 0; left: 0; 
-            width: 100%; z-index: 1000;
+            width: 100%; height: 75px; z-index: 1000;
             background: var(--nav-bg); 
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            display: flex; align-items: center;
         }
         
         /* New Underline Hover Effect for Nav Links */
         .nav-link { 
-            position: relative; padding: 28px 16px; margin: 0;
+            position: relative; height: 100%; padding: 0 16px; margin: 0;
             color: var(--text-main); text-decoration: none; font-size: 13.5px; 
             font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; 
             transition: color 0.3s ease;
-            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; 
+            line-height: 1;
         }
         
         .nav-link::after {
-            content: ''; position: absolute; bottom: -1px; left: 0; 
+            content: ''; position: absolute; bottom: 0; left: 0; 
             width: 0%; height: 3px; background-color: var(--accent-color); 
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -97,7 +100,7 @@
         
         .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
         .dropdown-menu { 
-            position: absolute; top: 100%; left: 0; transform: translateY(15px); 
+            position: absolute; top: 100%; left: 0; transform: translateY(10px); 
             margin-top: 0px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 100; 
         }
         .dropdown-inner { 
@@ -118,50 +121,117 @@
 
         /* PILL TOGGLE */
         .theme-toggle-pill { 
-            width: 56px; height: 30px; 
+            width: 68px; height: 38px; 
             background: var(--bg-card); 
-            border-radius: 30px; position: relative; cursor: pointer; 
+            border-radius: 38px; position: relative; cursor: pointer; 
             display: flex; align-items: center; justify-content: space-between; 
-            padding: 0 8px; border: 1px solid var(--text-muted); 
+            padding: 0 10px; border: 1px solid var(--border-color); 
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 2px 5px rgba(0,0,0,0.1);
+            box-sizing: border-box; flex-shrink: 0;
         }
-        .theme-toggle-pill i { font-size: 12px; z-index: 1; }
+        .theme-toggle-pill i { font-size: 13px; z-index: 1; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .theme-toggle-pill .fa-sun { color: #f59e0b; }
         .theme-toggle-pill .fa-moon { color: #6b7280; }
         .theme-toggle-pill .thumb { 
-            position: absolute; top: 2px; inset-inline-start: 2px; width: 24px; height: 24px; 
+            position: absolute; top: 4px; inset-inline-start: 4px; width: 28px; height: 28px; 
             background: var(--text-main); border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
             box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 2; 
         }
-        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: var(--text-main); }
-        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-26px); }
+        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(30px); background: var(--text-main); }
+        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-30px); }
 
-        /* BUTTONS */
+        /* BUTTONS - ALL BUTTON BACKGROUNDS BLUE & 100% VISIBLE WHITE TYPOGRAPHY */
         .btn { 
-            padding: 12px 28px; font-weight: 700; font-size: 12px; text-transform: uppercase; 
-            letter-spacing: 1px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: inline-flex; align-items: center; justify-content: center; 
-            cursor: pointer; border-radius: 50px; box-sizing: border-box; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-weight: 700; text-transform: uppercase; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            cursor: pointer; border-radius: 50px !important; box-sizing: border-box; 
+            text-decoration: none; white-space: nowrap; line-height: 1;
+            background: #0EA5E9 !important; color: #FFFFFF !important;
         }
+        .btn, .btn *, .btn i, .btn span { 
+            color: #FFFFFF !important; 
+        }
+
+        /* Standard Sizes */
+        .btn-sm { 
+            height: 38px; min-height: 38px; padding: 0 20px; 
+            font-size: 11px; letter-spacing: 0.8px; 
+        }
+        .btn-md, .btn:not(.btn-sm):not(.btn-lg) { 
+            min-height: 48px; padding: 12px 28px; 
+            font-size: 12.5px; letter-spacing: 0.6px; 
+        }
+        .btn-lg { 
+            min-height: 54px; padding: 14px 34px; 
+            font-size: 13.5px; letter-spacing: 0.8px; 
+        }
+
+        /* Solid Button (Primary Electric Blue) */
         .btn-solid { 
-            background: var(--accent-color); color: #FFFFFF !important; 
-            border: none; box-shadow: 0 4px 15px -3px var(--accent-color); 
+            background: #0EA5E9 !important; color: #FFFFFF !important; 
+            border: 1.5px solid #0EA5E9 !important; 
+            box-shadow: 0 4px 14px -2px rgba(14, 165, 233, 0.45); 
         }
         .btn-solid:hover { 
-            background: var(--accent-dark); transform: translateY(-2px); 
-            box-shadow: 0 8px 25px -5px var(--accent-dark); 
+            background: #0284C7 !important; border-color: #0284C7 !important; color: #FFFFFF !important; 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 22px -4px rgba(14, 165, 233, 0.55); 
         }
+        .btn-solid:active { transform: translateY(0); }
         
+        /* Solid Button - Dark Mode */
+        body.dark-mode .btn-solid { 
+            background: #0EA5E9 !important; color: #FFFFFF !important; font-weight: 700; 
+            border: 1.5px solid #38BDF8 !important; 
+            box-shadow: 0 4px 18px -2px rgba(14, 165, 233, 0.5); 
+        }
+        body.dark-mode .btn-solid:hover { 
+            background: #0284C7 !important; border-color: #7DD3FC !important; color: #FFFFFF !important; 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 24px -3px rgba(14, 165, 233, 0.65); 
+        }
+        body.dark-mode .btn-solid:active { transform: translateY(0); }
+        
+        /* Secondary / Card Buttons (Deep Royal Blue) */
         .btn-outline { 
-            border: 1px solid var(--border-color); 
-            color: var(--text-main); 
-            background: var(--bg-card); 
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05); 
+            border: 1.5px solid #0EA5E9 !important; 
+            color: #FFFFFF !important; 
+            background: #0284C7 !important; 
+            box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35); 
         }
         .btn-outline:hover { 
-            border-color: var(--accent-color); color: var(--accent-color); 
-            background: var(--bg-secondary); transform: translateY(-2px); 
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border-color: #38BDF8 !important; color: #FFFFFF !important; 
+            background: #0369A1 !important; transform: translateY(-2px); 
+            box-shadow: 0 8px 20px -3px rgba(2, 132, 199, 0.5); 
+        }
+        .btn-outline:active { transform: translateY(0); }
+
+        /* Secondary Button - Dark Mode */
+        body.dark-mode .btn-outline { 
+            border: 1.5px solid #38BDF8 !important; 
+            color: #FFFFFF !important; 
+            background: #0369A1 !important; 
+            box-shadow: 0 4px 16px -2px rgba(3, 105, 161, 0.45); 
+        }
+        body.dark-mode .btn-outline:hover { 
+            border-color: #7DD3FC !important; color: #FFFFFF !important; 
+            background: #0284C7 !important; transform: translateY(-2px); 
+            box-shadow: 0 8px 22px -4px rgba(14, 165, 233, 0.6); 
+        }
+        body.dark-mode .btn-outline:active { transform: translateY(0); }
+
+        /* Badges inside card buttons */
+        .btn .rounded-full.w-8 {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: #FFFFFF !important;
+        }
+        .btn:hover .rounded-full.w-8 {
+            background: #FFFFFF !important;
+            color: #0284C7 !important;
+        }
+        .btn:hover .rounded-full.w-8 i {
+            color: #0284C7 !important;
         }
 
         /* MOBILE OVERLAY BACKGROUND */
@@ -206,9 +276,9 @@
 
     <!-- REDESIGNED NAVBAR PART (EXACT MATCH) -->
     <nav class="navbar">
-        <div class="max-w-[1400px] mx-auto px-6 w-full flex items-center justify-between">
-            <div class="flex items-center justify-start shrink-0">
-                <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+        <div class="max-w-[1400px] mx-auto px-6 w-full h-[75px] flex items-center justify-between">
+            <div class="flex items-center justify-start shrink-0 h-[75px]">
+                <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase flex items-center leading-none" style="color: var(--text-main); text-decoration: none;">
                     GLASS<span style="color: var(--accent-color);">PRO</span>
                 </a>
             </div>
@@ -236,14 +306,14 @@
                 <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
                     <i class="fa-regular fa-sun"></i><i class="fa-regular fa-moon"></i><div class="thumb"></div>
                 </div>
-                <button id="rtl-btn" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] hover:text-white hover:bg-[var(--accent-color)] transition-all uppercase tracking-widest border border-[var(--border-color)] px-3 py-1.5 rounded-full shadow-sm">RTL</button>
-                <div class="h-6 w-[1px] bg-[var(--border-color)] mx-2"></div>
-                <a href="booking.html" class="btn btn-solid min-w-[95px] h-[38px] !p-0 !text-[11px] flex items-center justify-center">BOOK NOW</a>
+                <button id="rtl-btn" class="h-[38px] px-3.5 flex items-center justify-center text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] hover:text-white hover:bg-[var(--accent-color)] transition-all uppercase tracking-widest border border-[var(--border-color)] rounded-full shadow-sm shrink-0">RTL</button>
+                <div class="h-6 w-[1px] bg-[var(--border-color)] mx-1 shrink-0"></div>
+                <a href="booking.html" class="btn btn-solid btn-sm min-w-[95px] shrink-0">BOOK NOW</a>
             </div>
 
             <div class="xl:hidden flex items-center justify-end h-[75px]">
-                <button id="mobile-btn" class="w-10 h-10 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
-                    <i class="fa-solid fa-bars-staggered text-lg"></i>
+                <button id="mobile-btn" class="w-[38px] h-[38px] rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
+                    <i class="fa-solid fa-bars-staggered text-base"></i>
                 </button>
             </div>
         </div>
@@ -253,10 +323,10 @@
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <div class="fullscreen-menu" id="fullscreen-menu">
         <div class="w-full px-6 py-5 flex justify-between items-center border-b border-[var(--border-color)] shrink-0 bg-[var(--bg-secondary)]">
-            <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+            <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase flex items-center leading-none" style="color: var(--text-main); text-decoration: none;">
                 GLASS<span style="color: var(--accent-color);">PRO</span>
             </a>
-            <button id="close-menu" class="w-8 h-8 rounded-lg border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-lg bg-[var(--bg-card)] text-[var(--text-muted)]">
+            <button id="close-menu" class="w-[38px] h-[38px] rounded-lg border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-base bg-[var(--bg-card)] text-[var(--text-muted)]">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -279,11 +349,11 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="text-[var(--text-muted)] font-semibold text-[10px] uppercase tracking-widest">Layout:</span>
-                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3 py-1.5 rounded-lg hover:border-[var(--accent-color)] transition-colors shadow-sm">LTR / RTL</button>
+                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3.5 py-1.5 rounded-full hover:border-[var(--accent-color)] transition-colors shadow-sm">LTR / RTL</button>
                 </div>
             </div>
             <div class="flex flex-col gap-3 w-full mt-2">
-                <a href="booking.html" class="btn btn-solid w-full !py-3 rounded-lg">BOOK NOW</a>
+                <a href="booking.html" class="btn btn-solid btn-md w-full">BOOK NOW</a>
             </div>
         </div>
     </div>
@@ -308,7 +378,7 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12">
-                    <a href="#latest-posts" class="btn btn-solid w-full sm:w-auto group !py-4 !px-8 text-sm flex justify-center items-center gap-3 shadow-lg shadow-[var(--accent-color)]/30">
+                    <a href="#latest-posts" class="btn btn-solid btn-lg w-full sm:w-auto group flex justify-center items-center gap-3">
                         <span>Read Articles</span>
                         <i class="fa-solid fa-arrow-down transition-transform group-hover:translate-y-1"></i>
                     </a>
@@ -375,9 +445,9 @@
                         <div class="w-12 h-1 bg-[var(--accent-color)] mb-5 rounded-full"></div>
                         <h3 class="text-xl font-bold brand-font text-[var(--text-main)] mb-3 leading-snug group-hover:text-[var(--accent-color)] transition-colors">5 Signs You Need an Immediate Windshield Replacement</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow leading-relaxed">Don't ignore that small chip. Learn how to identify when windshield damage compromises your safety and requires a full replacement rather than a simple patch.</p>
-                        <a href="services-details.html" class="btn btn-outline w-full !py-3 flex justify-between items-center group/btn mt-auto rounded-xl">
+                        <a href="services-details.html" class="btn btn-outline btn-md w-full flex justify-between items-center group/btn mt-auto">
                             <span>View Now</span>
-                            <div class="w-8 h-8 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
+                            <div class="w-8 h-8 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
                         </a>
                     </div>
                 </div>
@@ -392,9 +462,9 @@
                         <div class="w-12 h-1 bg-[var(--accent-color)] mb-5 rounded-full"></div>
                         <h3 class="text-xl font-bold brand-font text-[var(--text-main)] mb-3 leading-snug group-hover:text-[var(--accent-color)] transition-colors">Understanding Window Tint Percentages & Local Laws</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow leading-relaxed">Confused by VLT percentages? We break down what window tint numbers mean and how to ensure your vehicle stays compliant with local regulations.</p>
-                        <a href="services-details.html" class="btn btn-outline w-full !py-3 flex justify-between items-center group/btn mt-auto rounded-xl">
+                        <a href="services-details.html" class="btn btn-outline btn-md w-full flex justify-between items-center group/btn mt-auto">
                             <span>View Now</span>
-                            <div class="w-8 h-8 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
+                            <div class="w-8 h-8 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
                         </a>
                     </div>
                 </div>
@@ -409,9 +479,9 @@
                         <div class="w-12 h-1 bg-[var(--accent-color)] mb-5 rounded-full"></div>
                         <h3 class="text-xl font-bold brand-font text-[var(--text-main)] mb-3 leading-snug group-hover:text-[var(--accent-color)] transition-colors">How to Defrost Auto Glass Without Cracking It</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow leading-relaxed">Winter mornings can be brutal on auto glass. Discover the safest methods to clear ice from your windshield without causing thermal shock.</p>
-                        <a href="services-details.html" class="btn btn-outline w-full !py-3 flex justify-between items-center group/btn mt-auto rounded-xl">
+                        <a href="services-details.html" class="btn btn-outline btn-md w-full flex justify-between items-center group/btn mt-auto">
                             <span>View Now</span>
-                            <div class="w-8 h-8 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
+                            <div class="w-8 h-8 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
                         </a>
                     </div>
                 </div>
@@ -426,9 +496,9 @@
                         <div class="w-12 h-1 bg-[var(--accent-color)] mb-5 rounded-full"></div>
                         <h3 class="text-xl font-bold brand-font text-[var(--text-main)] mb-3 leading-snug group-hover:text-[var(--accent-color)] transition-colors">ADAS Calibration: Why Modern Windshields Are High-Tech</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow leading-relaxed">Replacing a windshield isn't just about glass anymore. Learn why camera recalibration is mandatory for lane assist and automatic braking systems.</p>
-                        <a href="services-details.html" class="btn btn-outline w-full !py-3 flex justify-between items-center group/btn mt-auto rounded-xl">
+                        <a href="services-details.html" class="btn btn-outline btn-md w-full flex justify-between items-center group/btn mt-auto">
                             <span>View Now</span>
-                            <div class="w-8 h-8 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
+                            <div class="w-8 h-8 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
                         </a>
                     </div>
                 </div>
@@ -443,9 +513,9 @@
                         <div class="w-12 h-1 bg-[var(--accent-color)] mb-5 rounded-full"></div>
                         <h3 class="text-xl font-bold brand-font text-[var(--text-main)] mb-3 leading-snug group-hover:text-[var(--accent-color)] transition-colors">How to Permanently Remove Hard Water Spots from Auto Glass</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow leading-relaxed">Tired of stubborn stains ruining your visibility? Here is our professional guide to safely dissolving hard water minerals without scratching your windows.</p>
-                        <a href="services-details.html" class="btn btn-outline w-full !py-3 flex justify-between items-center group/btn mt-auto rounded-xl">
+                        <a href="services-details.html" class="btn btn-outline btn-md w-full flex justify-between items-center group/btn mt-auto">
                             <span>View Now</span>
-                            <div class="w-8 h-8 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
+                            <div class="w-8 h-8 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
                         </a>
                     </div>
                 </div>
@@ -460,16 +530,16 @@
                         <div class="w-12 h-1 bg-[var(--accent-color)] mb-5 rounded-full"></div>
                         <h3 class="text-xl font-bold brand-font text-[var(--text-main)] mb-3 leading-snug group-hover:text-[var(--accent-color)] transition-colors">Why Window Tint Bubbles & Turns Purple (And How to Fix It)</h3>
                         <p class="text-[var(--text-muted)] text-sm mb-6 flex-grow leading-relaxed">Cheap dye-based films degrade over time under harsh UV rays. Find out why it happens and why upgrading to ceramic film is the ultimate solution.</p>
-                        <a href="services-details.html" class="btn btn-outline w-full !py-3 flex justify-between items-center group/btn mt-auto rounded-xl">
+                        <a href="services-details.html" class="btn btn-outline btn-md w-full flex justify-between items-center group/btn mt-auto">
                             <span>View Now</span>
-                            <div class="w-8 h-8 rounded-lg bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
+                            <div class="w-8 h-8 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center group-hover/btn:bg-[var(--accent-color)] group-hover/btn:text-white transition-colors"><i class="fa-solid fa-arrow-right-long text-xs"></i></div>
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="mt-16 text-center">
-                <a href="#" class="btn btn-outline !py-4 !px-10 rounded-full font-bold">Load More Articles <i class="fa-solid fa-rotate-right ml-2"></i></a>
+                <a href="#" class="btn btn-outline btn-md font-bold">Load More Articles <i class="fa-solid fa-rotate-right ml-2"></i></a>
             </div>
         </div>
     </section>
@@ -527,7 +597,7 @@
                         <i class="fa-regular fa-envelope absolute left-5 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
                         <input type="email" placeholder="Enter your email address" class="w-full pl-12 pr-4 py-4 rounded-xl text-sm text-[var(--text-main)] bg-[var(--bg-card)] border-none outline-none focus:ring-4 focus:ring-[var(--accent-color)]/30 shadow-inner" required>
                     </div>
-                    <button type="submit" class="bg-[var(--accent-color)] text-white font-bold text-sm uppercase tracking-widest py-4 px-8 rounded-xl hover:bg-[var(--accent-dark)] transition-all shadow-lg w-full flex items-center justify-center gap-2">
+                    <button type="submit" class="btn btn-solid btn-lg w-full flex items-center justify-center gap-2">
                         Subscribe <i class="fa-solid fa-paper-plane"></i>
                     </button>
                     <p class="text-slate-500 text-[10px] uppercase tracking-widest text-center mt-2">Unsubscribe at any time.</p>

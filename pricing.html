@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing | Window Tinting & Auto Glass Service</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -65,24 +66,26 @@
         /* === NEW NAVBAR DESIGN === */
         .navbar { 
             position: fixed; top: 0; left: 0; 
-            width: 100%; z-index: 1000;
+            width: 100%; height: 75px; z-index: 1000;
             background: var(--nav-bg); 
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             transition: all 0.3s ease;
+            display: flex; align-items: center;
         }
         
         /* New Underline Hover Effect for Nav Links */
         .nav-link { 
-            position: relative; padding: 28px 16px; margin: 0;
+            position: relative; height: 100%; padding: 0 16px; margin: 0;
             color: var(--text-main); text-decoration: none; font-size: 13.5px; 
             font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; 
             transition: color 0.3s ease;
-            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; 
+            line-height: 1;
         }
         
         .nav-link::after {
-            content: ''; position: absolute; bottom: -1px; left: 0; 
+            content: ''; position: absolute; bottom: 0; left: 0; 
             width: 0%; height: 3px; background-color: var(--accent-color); 
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -97,7 +100,7 @@
         
         .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
         .dropdown-menu { 
-            position: absolute; top: 100%; left: 0; transform: translateY(15px); 
+            position: absolute; top: 100%; left: 0; transform: translateY(10px); 
             margin-top: 0px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 100; 
         }
         .dropdown-inner { 
@@ -118,50 +121,117 @@
 
         /* PILL TOGGLE */
         .theme-toggle-pill { 
-            width: 56px; height: 30px; 
+            width: 68px; height: 38px; 
             background: var(--bg-card); 
-            border-radius: 30px; position: relative; cursor: pointer; 
+            border-radius: 38px; position: relative; cursor: pointer; 
             display: flex; align-items: center; justify-content: space-between; 
-            padding: 0 8px; border: 1px solid var(--text-muted); 
+            padding: 0 10px; border: 1px solid var(--border-color); 
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 2px 5px rgba(0,0,0,0.1);
+            box-sizing: border-box; flex-shrink: 0;
         }
-        .theme-toggle-pill i { font-size: 12px; z-index: 1; }
+        .theme-toggle-pill i { font-size: 13px; z-index: 1; display: flex; align-items: center; justify-content: center; line-height: 1; }
         .theme-toggle-pill .fa-sun { color: #f59e0b; }
         .theme-toggle-pill .fa-moon { color: #6b7280; }
         .theme-toggle-pill .thumb { 
-            position: absolute; top: 2px; inset-inline-start: 2px; width: 24px; height: 24px; 
+            position: absolute; top: 4px; inset-inline-start: 4px; width: 28px; height: 28px; 
             background: var(--text-main); border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
             box-shadow: 0 2px 4px rgba(0,0,0,0.3); z-index: 2; 
         }
-        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(26px); background: var(--text-main); }
-        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-26px); }
+        body.dark-mode .theme-toggle-pill .thumb { transform: translateX(30px); background: var(--text-main); }
+        [dir="rtl"] body.dark-mode .theme-toggle-pill .thumb { transform: translateX(-30px); }
 
-        /* BUTTONS */
+        /* BUTTONS - ALL BUTTON BACKGROUNDS BLUE & 100% VISIBLE WHITE TYPOGRAPHY */
         .btn { 
-            padding: 12px 28px; font-weight: 700; font-size: 12px; text-transform: uppercase; 
-            letter-spacing: 1px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: inline-flex; align-items: center; justify-content: center; 
-            cursor: pointer; border-radius: 50px; box-sizing: border-box; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-weight: 700; text-transform: uppercase; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            cursor: pointer; border-radius: 50px !important; box-sizing: border-box; 
+            text-decoration: none; white-space: nowrap; line-height: 1;
+            background: #0EA5E9 !important; color: #FFFFFF !important;
         }
+        .btn, .btn *, .btn i, .btn span { 
+            color: #FFFFFF !important; 
+        }
+
+        /* Standard Sizes */
+        .btn-sm { 
+            height: 38px; min-height: 38px; padding: 0 20px; 
+            font-size: 11px; letter-spacing: 0.8px; 
+        }
+        .btn-md, .btn:not(.btn-sm):not(.btn-lg) { 
+            min-height: 48px; padding: 12px 28px; 
+            font-size: 12.5px; letter-spacing: 0.6px; 
+        }
+        .btn-lg { 
+            min-height: 54px; padding: 14px 34px; 
+            font-size: 13.5px; letter-spacing: 0.8px; 
+        }
+
+        /* Solid Button (Primary Electric Blue) */
         .btn-solid { 
-            background: var(--accent-color); color: #FFFFFF !important; 
-            border: none; box-shadow: 0 4px 15px -3px var(--accent-color); 
+            background: #0EA5E9 !important; color: #FFFFFF !important; 
+            border: 1.5px solid #0EA5E9 !important; 
+            box-shadow: 0 4px 14px -2px rgba(14, 165, 233, 0.45); 
         }
         .btn-solid:hover { 
-            background: var(--accent-dark); transform: translateY(-2px); 
-            box-shadow: 0 8px 25px -5px var(--accent-dark); 
+            background: #0284C7 !important; border-color: #0284C7 !important; color: #FFFFFF !important; 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 22px -4px rgba(14, 165, 233, 0.55); 
         }
+        .btn-solid:active { transform: translateY(0); }
         
+        /* Solid Button - Dark Mode */
+        body.dark-mode .btn-solid { 
+            background: #0EA5E9 !important; color: #FFFFFF !important; font-weight: 700; 
+            border: 1.5px solid #38BDF8 !important; 
+            box-shadow: 0 4px 18px -2px rgba(14, 165, 233, 0.5); 
+        }
+        body.dark-mode .btn-solid:hover { 
+            background: #0284C7 !important; border-color: #7DD3FC !important; color: #FFFFFF !important; 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 24px -3px rgba(14, 165, 233, 0.65); 
+        }
+        body.dark-mode .btn-solid:active { transform: translateY(0); }
+        
+        /* Secondary / Card Buttons (Deep Royal Blue) */
         .btn-outline { 
-            border: 1px solid var(--border-color); 
-            color: var(--text-main); 
-            background: var(--bg-card); 
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05); 
+            border: 1.5px solid #0EA5E9 !important; 
+            color: #FFFFFF !important; 
+            background: #0284C7 !important; 
+            box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35); 
         }
         .btn-outline:hover { 
-            border-color: var(--accent-color); color: var(--accent-color); 
-            background: var(--bg-secondary); transform: translateY(-2px); 
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border-color: #38BDF8 !important; color: #FFFFFF !important; 
+            background: #0369A1 !important; transform: translateY(-2px); 
+            box-shadow: 0 8px 20px -3px rgba(2, 132, 199, 0.5); 
+        }
+        .btn-outline:active { transform: translateY(0); }
+
+        /* Secondary Button - Dark Mode */
+        body.dark-mode .btn-outline { 
+            border: 1.5px solid #38BDF8 !important; 
+            color: #FFFFFF !important; 
+            background: #0369A1 !important; 
+            box-shadow: 0 4px 16px -2px rgba(3, 105, 161, 0.45); 
+        }
+        body.dark-mode .btn-outline:hover { 
+            border-color: #7DD3FC !important; color: #FFFFFF !important; 
+            background: #0284C7 !important; transform: translateY(-2px); 
+            box-shadow: 0 8px 22px -4px rgba(14, 165, 233, 0.6); 
+        }
+        body.dark-mode .btn-outline:active { transform: translateY(0); }
+
+        /* Badges inside card buttons */
+        .btn .rounded-full.w-8 {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: #FFFFFF !important;
+        }
+        .btn:hover .rounded-full.w-8 {
+            background: #FFFFFF !important;
+            color: #0284C7 !important;
+        }
+        .btn:hover .rounded-full.w-8 i {
+            color: #0284C7 !important;
         }
 
         /* MOBILE OVERLAY BACKGROUND */
@@ -206,9 +276,9 @@
 
     <!-- REDESIGNED NAVBAR PART (EXACT MATCH) -->
     <nav class="navbar">
-        <div class="max-w-[1400px] mx-auto px-6 w-full flex items-center justify-between">
-            <div class="flex items-center justify-start shrink-0">
-                <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+        <div class="max-w-[1400px] mx-auto px-6 w-full h-[75px] flex items-center justify-between">
+            <div class="flex items-center justify-start shrink-0 h-[75px]">
+                <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase flex items-center leading-none" style="color: var(--text-main); text-decoration: none;">
                     GLASS<span style="color: var(--accent-color);">PRO</span>
                 </a>
             </div>
@@ -236,14 +306,14 @@
                 <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
                     <i class="fa-regular fa-sun"></i><i class="fa-regular fa-moon"></i><div class="thumb"></div>
                 </div>
-                <button id="rtl-btn" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] hover:text-white hover:bg-[var(--accent-color)] transition-all uppercase tracking-widest border border-[var(--border-color)] px-3 py-1.5 rounded-full shadow-sm">RTL</button>
-                <div class="h-6 w-[1px] bg-[var(--border-color)] mx-2"></div>
-                <a href="booking.html" class="btn btn-solid min-w-[95px] h-[38px] !p-0 !text-[11px] flex items-center justify-center">BOOK NOW</a>
+                <button id="rtl-btn" class="h-[38px] px-3.5 flex items-center justify-center text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] hover:text-white hover:bg-[var(--accent-color)] transition-all uppercase tracking-widest border border-[var(--border-color)] rounded-full shadow-sm shrink-0">RTL</button>
+                <div class="h-6 w-[1px] bg-[var(--border-color)] mx-1 shrink-0"></div>
+                <a href="booking.html" class="btn btn-solid btn-sm min-w-[95px] shrink-0">BOOK NOW</a>
             </div>
 
             <div class="xl:hidden flex items-center justify-end h-[75px]">
-                <button id="mobile-btn" class="w-10 h-10 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
-                    <i class="fa-solid fa-bars-staggered text-lg"></i>
+                <button id="mobile-btn" class="w-[38px] h-[38px] rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] hover:text-white hover:bg-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all shadow-sm">
+                    <i class="fa-solid fa-bars-staggered text-base"></i>
                 </button>
             </div>
         </div>
@@ -253,10 +323,10 @@
     <div class="drawer-overlay" id="drawer-overlay"></div>
     <div class="fullscreen-menu" id="fullscreen-menu">
         <div class="w-full px-6 py-5 flex justify-between items-center border-b border-[var(--border-color)] shrink-0 bg-[var(--bg-secondary)]">
-            <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase" style="color: var(--text-main); text-decoration: none;">
+            <a href="index.html" class="brand-font text-2xl lg:text-3xl font-black tracking-tight uppercase flex items-center leading-none" style="color: var(--text-main); text-decoration: none;">
                 GLASS<span style="color: var(--accent-color);">PRO</span>
             </a>
-            <button id="close-menu" class="w-8 h-8 rounded-lg border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-lg bg-[var(--bg-card)] text-[var(--text-muted)]">
+            <button id="close-menu" class="w-[38px] h-[38px] rounded-lg border border-[var(--border-color)] flex items-center justify-center hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] transition-all text-base bg-[var(--bg-card)] text-[var(--text-muted)]">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -279,11 +349,11 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="text-[var(--text-muted)] font-semibold text-[10px] uppercase tracking-widest">Layout:</span>
-                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3 py-1.5 rounded-lg hover:border-[var(--accent-color)] transition-colors shadow-sm">LTR / RTL</button>
+                    <button id="rtl-toggle-mobile" class="text-[10px] font-black text-[var(--text-main)] bg-[var(--bg-card)] border border-[var(--border-color)] px-3.5 py-1.5 rounded-full hover:border-[var(--accent-color)] transition-colors shadow-sm">LTR / RTL</button>
                 </div>
             </div>
             <div class="flex flex-col gap-3 w-full mt-2">
-                <a href="booking.html" class="btn btn-solid w-full !py-3 rounded-lg">BOOK NOW</a>
+                <a href="booking.html" class="btn btn-solid btn-md w-full">BOOK NOW</a>
             </div>
         </div>
     </div>
@@ -308,11 +378,11 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12">
-                    <a href="#pricing-tables" class="btn btn-solid w-full sm:w-auto group !py-4 !px-8 text-sm flex justify-center items-center gap-3 shadow-lg shadow-[var(--accent-color)]/30">
+                    <a href="#pricing-tables" class="btn btn-solid btn-lg w-full sm:w-auto group flex justify-center items-center gap-3">
                         <span>View Packages</span>
                         <i class="fa-solid fa-arrow-down transition-transform group-hover:translate-y-1"></i>
                     </a>
-                    <a href="contact.html" class="btn btn-outline w-full sm:w-auto !py-4 !px-8 text-sm transition-all flex justify-center items-center gap-3">
+                    <a href="contact.html" class="btn btn-outline btn-lg w-full sm:w-auto flex justify-center items-center gap-3">
                         <i class="fa-regular fa-clipboard text-lg"></i> Get Custom Quote
                     </a>
                 </div>
@@ -354,7 +424,7 @@
                 <!-- Tint Tier 1 -->
                 <div class="bg-[var(--bg-card)] rounded-3xl p-8 border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                     <div class="flex items-center gap-3 mb-6 shrink-0">
-                        <div class="w-12 h-12 rounded-xl bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-main)]"><i class="fa-solid fa-car-side"></i></div>
+                        <div class="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-xl shrink-0 shadow-sm"><i class="fa-solid fa-car-side"></i></div>
                         <h3 class="text-2xl font-black brand-font text-[var(--text-main)] uppercase">Standard</h3>
                     </div>
                     <div class="mb-6 shrink-0"><span class="text-[var(--text-muted)] font-bold text-sm uppercase">Starting at</span> <div class="text-5xl font-black text-[var(--accent-color)] brand-font mt-1">$149</div></div>
@@ -364,13 +434,13 @@
                         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> 3-Year Limited Warranty</li>
                         <li class="flex items-start gap-3 opacity-50"><i class="fa-solid fa-xmark mt-0.5"></i> Basic Heat Rejection</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-outline w-full !py-4 mt-auto">Select Standard</a>
+                    <a href="contact.html" class="btn btn-outline btn-md w-full mt-auto">Select Standard</a>
                 </div>
                 <!-- Tint Tier 2 (Highlighted) -->
                 <div class="bg-[var(--bg-card)] rounded-3xl p-8 border-2 border-[var(--accent-color)] shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full relative transform md:-translate-y-4">
                     <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[var(--accent-color)] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full">Most Popular</div>
                     <div class="flex items-center gap-3 mb-6 shrink-0 mt-2">
-                        <div class="w-12 h-12 rounded-xl bg-[var(--accent-color)] flex items-center justify-center text-white"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-xl shrink-0 shadow-sm"><i class="fa-solid fa-shield-halved"></i></div>
                         <h3 class="text-2xl font-black brand-font text-[var(--text-main)] uppercase">Carbon</h3>
                     </div>
                     <div class="mb-6 shrink-0"><span class="text-[var(--text-muted)] font-bold text-sm uppercase">Starting at</span> <div class="text-5xl font-black text-[var(--text-main)] brand-font mt-1">$249</div></div>
@@ -380,12 +450,12 @@
                         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> High Heat Rejection (IR)</li>
                         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Lifetime Warranty</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-solid w-full !py-4 mt-auto shadow-[var(--accent-color)]/30 shadow-lg">Select Carbon</a>
+                    <a href="contact.html" class="btn btn-solid btn-md w-full mt-auto">Select Carbon</a>
                 </div>
                 <!-- Tint Tier 3 -->
                 <div class="bg-[var(--bg-card)] rounded-3xl p-8 border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                     <div class="flex items-center gap-3 mb-6 shrink-0">
-                        <div class="w-12 h-12 rounded-xl bg-[var(--text-main)] flex items-center justify-center text-white"><i class="fa-solid fa-gem"></i></div>
+                        <div class="w-12 h-12 rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-xl shrink-0 shadow-sm"><i class="fa-solid fa-gem"></i></div>
                         <h3 class="text-2xl font-black brand-font text-[var(--text-main)] uppercase">Ceramic Pro</h3>
                     </div>
                     <div class="mb-6 shrink-0"><span class="text-[var(--text-muted)] font-bold text-sm uppercase">Starting at</span> <div class="text-5xl font-black text-[var(--text-main)] brand-font mt-1">$399</div></div>
@@ -395,7 +465,7 @@
                         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Zero Signal Interference</li>
                         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Lifetime Warranty + Scratch Resistant</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-outline w-full !py-4 mt-auto">Select Ceramic</a>
+                    <a href="contact.html" class="btn btn-outline btn-md w-full mt-auto">Select Ceramic</a>
                 </div>
             </div>
         </div>
@@ -417,7 +487,7 @@
                             <h3 class="text-2xl font-black brand-font text-[var(--text-main)] uppercase">Chip & Crack Repair</h3>
                             <p class="text-[var(--text-muted)] text-xs font-bold uppercase mt-1">Prevent cracks from spreading</p>
                         </div>
-                        <div class="w-14 h-14 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--accent-color)] text-2xl"><i class="fa-solid fa-car-burst"></i></div>
+                        <div class="w-14 h-14 rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-2xl shrink-0 shadow-sm"><i class="fa-solid fa-car-burst"></i></div>
                     </div>
                     <div class="mb-6 shrink-0 flex items-end gap-2">
                         <div class="text-5xl font-black text-[var(--text-main)] brand-font">$65</div><span class="text-[var(--text-muted)] font-bold text-sm uppercase mb-2">/ Flat Rate</span>
@@ -428,7 +498,7 @@
                         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Often 100% Covered by Insurance</li>
                         <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Lifetime Guarantee against spreading</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-outline w-full !py-4 mt-auto">Book Repair</a>
+                    <a href="contact.html" class="btn btn-outline btn-md w-full mt-auto">Book Repair</a>
                 </div>
                 <!-- Glass Tier 2 -->
                 <div class="bg-[var(--bg-card)] rounded-3xl p-8 border border-[var(--border-color)] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-gradient-to-b from-[var(--bg-card)] to-[var(--bg-secondary)]">
@@ -437,18 +507,18 @@
                             <h3 class="text-2xl font-black brand-font text-[var(--text-main)] uppercase">Full Replacement</h3>
                             <p class="text-[var(--text-muted)] text-xs font-bold uppercase mt-1">Windshields & Side Windows</p>
                         </div>
-                        <div class="w-14 h-14 rounded-full bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--text-main)] text-2xl"><i class="fa-solid fa-layer-group"></i></div>
+                        <div class="w-14 h-14 rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-2xl shrink-0 shadow-sm"><i class="fa-solid fa-layer-group"></i></div>
                     </div>
                     <div class="mb-6 shrink-0 flex items-end gap-2">
                         <span class="text-[var(--text-muted)] font-bold text-sm uppercase mb-2">Estimates from</span> <div class="text-5xl font-black text-[var(--text-main)] brand-font">$250</div>
                     </div>
                     <ul class="space-y-4 mb-8 text-sm font-semibold text-[var(--text-muted)] flex-grow">
-                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--text-main)] mt-0.5"></i> OEM or OEE Quality Glass Only</li>
-                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--text-main)] mt-0.5"></i> Advanced ADAS Recalibration Available</li>
-                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--text-main)] mt-0.5"></i> Safe Drive-Away Time Guarantee</li>
-                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--text-main)] mt-0.5"></i> Direct Insurance Billing Handled For You</li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> OEM or OEE Quality Glass Only</li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Advanced ADAS Recalibration Available</li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Safe Drive-Away Time Guarantee</li>
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-check text-[var(--accent-color)] mt-0.5"></i> Direct Insurance Billing Handled For You</li>
                     </ul>
-                    <a href="contact.html" class="btn btn-solid w-full !py-4 mt-auto">Get Free Quote</a>
+                    <a href="contact.html" class="btn btn-solid btn-md w-full mt-auto">Get Free Quote</a>
                 </div>
             </div>
         </div>
@@ -470,7 +540,7 @@
                 </p>
             </div>
             <div class="lg:w-1/3 flex flex-col w-full shrink-0 mt-auto items-center lg:items-end">
-                <a href="contact.html" class="bg-[#0F172A] text-white font-bold text-sm uppercase tracking-widest py-5 px-10 rounded-full hover:bg-black transition-all shadow-2xl text-center w-full sm:w-auto flex items-center justify-center gap-3 border border-slate-700">
+                <a href="contact.html" class="btn btn-outline btn-lg text-center w-full sm:w-auto flex items-center justify-center gap-3">
                     Open Fleet Account <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
             </div>
@@ -488,28 +558,28 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Addon 1 -->
                 <div class="bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-color)] shadow-sm hover:-translate-y-1 transition-transform flex flex-col h-full text-center">
-                    <div class="w-12 h-12 mx-auto rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-main)] text-xl mb-4 shrink-0"><i class="fa-solid fa-droplet"></i></div>
+                    <div class="w-12 h-12 mx-auto rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-xl mb-4 shrink-0 shadow-sm"><i class="fa-solid fa-droplet"></i></div>
                     <h4 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-2">Aquapel Treatment</h4>
                     <p class="text-[var(--text-muted)] text-xs leading-relaxed mb-4 flex-grow">Professional hydrophobic glass treatment that repels rain and reduces glare.</p>
                     <div class="text-2xl font-black text-[var(--accent-color)] brand-font mt-auto shrink-0">$35</div>
                 </div>
                 <!-- Addon 2 -->
                 <div class="bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-color)] shadow-sm hover:-translate-y-1 transition-transform flex flex-col h-full text-center">
-                    <div class="w-12 h-12 mx-auto rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-main)] text-xl mb-4 shrink-0"><i class="fa-solid fa-sun"></i></div>
+                    <div class="w-12 h-12 mx-auto rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-xl mb-4 shrink-0 shadow-sm"><i class="fa-solid fa-sun"></i></div>
                     <h4 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-2">Sunroof Tint</h4>
                     <p class="text-[var(--text-muted)] text-xs leading-relaxed mb-4 flex-grow">Add our premium ceramic tint to your panoramic or standard sunroof to block overhead heat.</p>
                     <div class="text-2xl font-black text-[var(--accent-color)] brand-font mt-auto shrink-0">$75</div>
                 </div>
                 <!-- Addon 3 -->
                 <div class="bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-color)] shadow-sm hover:-translate-y-1 transition-transform flex flex-col h-full text-center">
-                    <div class="w-12 h-12 mx-auto rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-main)] text-xl mb-4 shrink-0"><i class="fa-solid fa-camera"></i></div>
+                    <div class="w-12 h-12 mx-auto rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-xl mb-4 shrink-0 shadow-sm"><i class="fa-solid fa-camera"></i></div>
                     <h4 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-2">ADAS Calibration</h4>
                     <p class="text-[var(--text-muted)] text-xs leading-relaxed mb-4 flex-grow">Mandatory camera recalibration required after replacing windshields on modern vehicles.</p>
                     <div class="text-2xl font-black text-[var(--accent-color)] brand-font mt-auto shrink-0">Varies</div>
                 </div>
                 <!-- Addon 4 -->
                 <div class="bg-[var(--bg-card)] rounded-2xl p-6 border border-[var(--border-color)] shadow-sm hover:-translate-y-1 transition-transform flex flex-col h-full text-center">
-                    <div class="w-12 h-12 mx-auto rounded-full bg-[var(--bg-secondary)] flex items-center justify-center text-[var(--text-main)] text-xl mb-4 shrink-0"><i class="fa-solid fa-eraser"></i></div>
+                    <div class="w-12 h-12 mx-auto rounded-2xl bg-black border border-white/10 flex items-center justify-center text-white text-xl mb-4 shrink-0 shadow-sm"><i class="fa-solid fa-eraser"></i></div>
                     <h4 class="text-lg font-bold brand-font text-[var(--text-main)] uppercase mb-2">Old Tint Removal</h4>
                     <p class="text-[var(--text-muted)] text-xs leading-relaxed mb-4 flex-grow">Safe, chemical-free removal of old, bubbling, or purple tint before applying new film.</p>
                     <div class="text-2xl font-black text-[var(--accent-color)] brand-font mt-auto shrink-0">$99</div>
